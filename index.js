@@ -20,7 +20,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(cors({
   credentials: true,
-  origin: ['https://awaas-vishwa-project.vercel.app'],
+  origin: ['https://awaas-vishwa-project.vercel.app','http://localhost:5173'],
 }));
 
 
