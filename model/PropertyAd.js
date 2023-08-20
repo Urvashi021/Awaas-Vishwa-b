@@ -18,11 +18,15 @@ const PropertyAdSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    photos: [
-      {
-        type: String,
-      },
-    ],
+    listType: {
+      type: String,
+      enum: ["SELL", "RENT"],
+      required: true,
+    },
+    imgList: {
+      type: Array,
+      required: true
+    },
     author: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
