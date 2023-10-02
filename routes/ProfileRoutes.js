@@ -1,8 +1,7 @@
 const express = require('express')
 const router = express.Router()
+const {getProfile} = require('../controller/ProfileController')
 
-router.get('/', (req, res)=>{
-    res.end('Awaas-Vishwa Backend App is healthy')
-})
+router.get('/', getProfile)
 
 module.exports = router

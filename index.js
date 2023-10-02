@@ -9,7 +9,7 @@ const cookieParser = require('cookie-parser')
 const healthRoute = require('./routes/HealthRoute')
 const authRoutes = require('./routes/AuthRoutes')
 const ItemsRoutes = require('./routes/ItemsRoutes')
-
+const ProfileRoutes = require('./routes/ProfileRoutes')
 
 /**
  * APP
@@ -21,7 +21,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(cors({
   credentials: true,
-  origin: ['https://awaas-vishwa-project.vercel.app','http://localhost:5173'],
+  origin: ['https://awaas-vishwa-project.vercel.app', 'http://localhost:5173'],
 }));
 
 
@@ -39,9 +39,9 @@ mongoose.connection.on('error', (er) => console.log("Database error :", er))
 app.use('/health', healthRoute)
 app.use('/api/v1/auth', authRoutes)
 app.use('/api/v1/items', ItemsRoutes)
-
+app.use('/api/v1/profile', ProfileRoutes)
 
 /**
  * SERVER LISTEN
  */
-app.listen(process.env.SERVER_PORT, () => console.log(`App server started at ${process.env.SERVER_PORT}`) );
+app.listen(process.env.SERVER_PORT, () => console.log(`App server started at ${process.env.SERVER_PORT}`));

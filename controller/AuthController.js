@@ -44,14 +44,14 @@ const registerUser = async (req, res) => {
 
   // save into database
   try {
-    const userByUsername = await User.findOne({ username: username });
+    const userByUsername = await User.findOne({username: username});
     if (userByUsername) {
-      res.status(400).json({ error: "User already exists" });
+      res.status(400).json({error: "User already exists"});
       return;
     }
-    const userByEmail = await User.findOne({ email: email });
+    const userByEmail = await User.findOne({email: email});
     if (userByEmail) {
-      res.status(400).json({ error: "Email already exists" });
+      res.status(400).json({error: "Email already exists"});
       return;
     }
     const userDoc = await User.create({
@@ -72,23 +72,23 @@ const loginUser = async (req, res) => {
 
   if (!usernameFormat.test(username)) {
       res.status(400).json({error: 'Invalid username! first character should be alphabet [A-Za-z] and other characters can be alphabets, numbers or an underscore so, [A-Za-z0-9_].'})
-      return
+      return;
   }
   if (!passwordFormat.test(password)) {
-      res.status(400).json({error: 'password should have minimum of eight characters, at least one uppercase letter, one lowercase letter, one number and one special character:'})
-      return
+      res.status(400).json({error: 'password should have minimum of eight characters, at least one uppercase letter, one lowercase letter, one number and one special character.'})
+      return;
   }
 
   try {
       const userDoc = await User.findOne({ username })
       if (!userDoc) {
           res.status(400).json({error: 'Invalid Username'})
-          return
+          return;
       }
       const isPasswordCorrect = bcrypt.compareSync(password, userDoc.password)
       if (!isPasswordCorrect) {
           res.status(400).json({error: 'Incorrect Password'})
-          return
+          return;
       }
       const token = jwt.sign({ id: userDoc._id}, process.env.JWT_SECRET, {expiresIn: '1h'})
       res.cookie('token', token, {httpOnly: true, sameSite:'none', secure: true }).status(200).json({success: "User Logged In",
@@ -110,7 +110,7 @@ const profileCheck = async (req, res) => {
   const { token } = req.cookies;
   if (!token) {
       res.status(401).json({error: 'Please login'})
-      return
+      return;
   }
   try {
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
@@ -123,7 +123,7 @@ const profileCheck = async (req, res) => {
       })
   } catch (err) {
       res.status(400).json({error: 'Error occured'})
-      return
+      return;
   }
 }
 
